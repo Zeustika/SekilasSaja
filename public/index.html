@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SekilasSaja</title>
+    <link rel="icon" type="image/png" href="img/icon-sekilas.png"/>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>SekilasSaja</h1>
+            <p>Upload dan bagikan foto/video yang hanya bisa dilihat sekali.</p>
+        </header>
+
+        <main class="main-content">
+            <!-- Upload Section -->
+            <div class="upload-section">
+                <input type="file" id="fileInput" accept="image/*, video/*" class="file-input">
+                <label for="fileInput" class="pilih-file-button">Pilih File</label>
+                <button onclick="uploadFile()" class="upload-button">Upload</button>
+            </div>
+
+            <!-- Preview Section -->
+            <div id="previewContainer" class="preview-section" style="display: none;">
+                <h2>Preview:</h2>
+                <div class="media-container">
+                    <img id="previewImage" src="" alt="Preview Foto" class="media">
+                    <video id="previewVideo" controls class="media" style="display: none;"></video>
+                </div>
+            </div>
+
+            <!-- Link Section -->
+            <div id="linkContainer" class="link-section" style="display: none;">
+                <h2>Link File:</h2>
+                <p id="fileLink" onclick="copyToClipboard(this)">Link akan muncul di sini setelah upload.</p>
+            </div>
+
+            <!-- View Section -->
+            <div id="viewContainer" class="view-section" style="display: none;">
+                <h2>File Anda:</h2>
+                <div class="media-container">
+                    <img id="viewImage" src="" alt="Foto" class="media">
+                    <video id="viewVideo" controls class="media" style="display: none;"></video>
+                </div>
+                <p class="warning">⚠️ File ini hanya bisa dilihat sekali. Jangan refresh halaman!</p>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>© 2025 SekilasSaja. Dibuat dengan ❤️ oleh Iyus.</p>
+        </footer>
+    </div>
+
+    <!-- Script -->
+    <script src="script.js"></script>
+</body>
+</html>

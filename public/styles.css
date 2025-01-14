@@ -1,0 +1,160 @@
+/* Reset default margin and padding */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Body styling */
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: #f8f9fa;
+    color: #333;
+    line-height: 1.6;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+/* Container */
+.container {
+    max-width: 800px;
+    width: 100%;
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    padding: 40px;
+    text-align: center;
+}
+
+/* Header */
+.header {
+    margin-bottom: 30px;
+}
+
+.header h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #2c3e50;
+    margin-bottom: 10px;
+}
+
+.header p {
+    font-size: 1.1rem;
+    color: #7f8c8d;
+}
+
+/* Upload section */
+.upload-section {
+    margin-top: 20px;
+}
+
+.file-input {
+    display: none; /* Sembunyikan input file default */
+}
+
+.pilih-file-button, .upload-button {
+    display: inline-block;
+    padding: 12px 24px;
+    font-size: 1rem;
+    font-weight: 500;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    margin: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.pilih-file-button {
+    background-color: #3498db;
+    color: #fff;
+}
+
+.pilih-file-button:hover {
+    background-color: #2980b9;
+}
+
+.upload-button {
+    background-color: #cf1717;
+    color: #fff;
+}
+
+.upload-button:hover {
+    background-color: #27ae60;
+}
+
+/* Preview section */
+.preview-section, .link-section, .view-section {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.preview-section h2, .link-section h2, .view-section h2 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #2c3e50;
+    margin-bottom: 10px;
+}
+
+/* Media container */
+.media-container {
+    width: 90%; /* Lebar dinamis */
+    max-width: 700px; /* Maksimum lebar */
+    height: 330px; /* Tinggi tetap */
+    border: 2px dashed #bdc3c7;
+    border-radius: 12px;
+    padding: 10px;
+    background-color: #f8f9fa;
+    margin: 0 auto 20px; /* Pusatkan container */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden; /* Pastikan konten tidak melampaui container */
+}
+
+.media-container img, .media-container video {
+    max-width: 100%; /* Maksimum lebar sesuai container */
+    max-height: 100%; /* Maksimum tinggi sesuai container */
+    width: auto; /* Lebar menyesuaikan rasio aspek */
+    height: auto; /* Tinggi menyesuaikan rasio aspek */
+    object-fit: contain; /* Pastikan gambar/video tidak terdistorsi */
+    border-radius: 8px;
+}
+
+/* Link section */
+#fileLink {
+    font-size: 1rem;
+    color: #3498db;
+    word-break: break-all; /* Memastikan link tidak overflow */
+    padding: 10px;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    border: 1px solid #bdc3c7;
+    cursor: pointer;
+}
+
+/* View section */
+.warning {
+    font-size: 0.9rem;
+    color: #e74c3c;
+    font-weight: 500;
+}
+
+/* Footer */
+.footer {
+    margin-top: 30px;
+    font-size: 0.9rem;
+    color: #7f8c8d;
+}
+
+.footer a {
+    color: #3498db;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.footer a:hover {
+    text-decoration: underline;
+}
