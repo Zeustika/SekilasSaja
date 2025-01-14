@@ -1,5 +1,5 @@
 {
-  "name": "sekilas-saja",
+  "name": "project_web",
   "version": "1.0.0",
   "description": "Website untuk bertukar foto/video dengan fitur view once.",
   "main": "server.js",
@@ -15,6 +15,6 @@
     "nodemon": "^3.0.2"
   },
   "engines": {
-    "node": "16.x"
+    "node": "22.x" 
   }
 }
