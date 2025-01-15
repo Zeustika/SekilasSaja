@@ -5,6 +5,40 @@
     box-sizing: border-box;
 }
 
+/* Preview section */
+.preview-section {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.preview-section h2 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #2c3e50;
+    margin-bottom: 10px;
+}
+/* Link section */
+.link-section {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.link-section h2 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #2c3e50;
+    margin-bottom: 10px;
+}
+
+#fileLink {
+    font-size: 1rem;
+    color: #3498db;
+    word-break: break-all; /* Memastikan link tidak overflow */
+    padding: 10px;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    border: 1px solid #bdc3c7;
+}
 /* Body styling */
 body {
     font-family: 'Inter', sans-serif;
@@ -46,18 +80,12 @@ body {
     color: #7f8c8d;
 }
 
-/* Upload section */
-.upload-section {
-    margin-top: 20px;
-}
-
-.file-input {
-    display: none; /* Sembunyikan input file default */
-}
-
-.pilih-file-button, .upload-button {
+/* Styling untuk tombol "Pilih File" */
+.pilih-file-button {
     display: inline-block;
     padding: 12px 24px;
+    background-color: #3498db; /* Warna biru */
+    color: #fff;
     font-size: 1rem;
     font-weight: 500;
     border: none;
@@ -67,41 +95,45 @@ body {
     transition: background-color 0.3s ease;
 }
 
-.pilih-file-button {
-    background-color: #3498db;
-    color: #fff;
-}
-
 .pilih-file-button:hover {
-    background-color: #2980b9;
+    background-color: #2980b9; /* Warna biru lebih gelap saat dihover */
 }
 
+/* Styling untuk tombol "Upload" */
 .upload-button {
-    background-color: #cf1717;
+    display: inline-block;
+    padding: 12px 24px;
+    background-color: #cf1717; /* Warna hijau */
     color: #fff;
+    font-size: 1rem;
+    font-weight: 500;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    margin: 5px;
+    transition: background-color 0.3s ease;
 }
 
 .upload-button:hover {
-    background-color: #27ae60;
+    background-color: #27ae60; /* Warna hijau lebih gelap saat dihover */
 }
 
-/* Preview section */
-.preview-section, .link-section, .view-section {
-    margin-top: 20px;
-    text-align: center;
+/* View section */
+.view-section {
+    margin-top: 30px;
 }
 
-.preview-section h2, .link-section h2, .view-section h2 {
-    font-size: 1.5rem;
+.view-section h2 {
+    font-size: 1.8rem;
     font-weight: 600;
     color: #2c3e50;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
 }
 
-/* Media container */
+/* CSS untuk media-container */
 .media-container {
-    width: 90%; /* Lebar dinamis */
-    max-width: 700px; /* Maksimum lebar */
+    width: 90%; /* Lebar dinamis, menyesuaikan dengan parent */
+    max-width: 700px; /* Maksimum lebar agar tidak terlalu lebar */
     height: 330px; /* Tinggi tetap */
     border: 2px dashed #bdc3c7;
     border-radius: 12px;
@@ -114,7 +146,9 @@ body {
     overflow: hidden; /* Pastikan konten tidak melampaui container */
 }
 
-.media-container img, .media-container video {
+/* CSS untuk gambar dan video di dalam media-container */
+.media-container img,
+.media-container video {
     max-width: 100%; /* Maksimum lebar sesuai container */
     max-height: 100%; /* Maksimum tinggi sesuai container */
     width: auto; /* Lebar menyesuaikan rasio aspek */
@@ -122,20 +156,40 @@ body {
     object-fit: contain; /* Pastikan gambar/video tidak terdistorsi */
     border-radius: 8px;
 }
-
-/* Link section */
-#fileLink {
-    font-size: 1rem;
-    color: #3498db;
-    word-break: break-all; /* Memastikan link tidak overflow */
-    padding: 10px;
-    background-color: #f8f9fa;
+.media {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 0 auto;
     border-radius: 8px;
-    border: 1px solid #bdc3c7;
-    cursor: pointer;
+}
+.file-input {
+    display: none; /* Sembunyikan input file default */
 }
 
-/* View section */
+.pilih-file-button {
+    display: inline-block;
+    padding: 12px 24px;
+    background-color: #3498db;
+    color: #fff;
+    font-size: 1rem;
+    font-weight: 500;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    margin: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.pilih-file-button:hover {
+    transform: scale(1.1);
+    box-shadow: 0 4px 10px #3498db;
+}
+
+.upload-button:hover {
+    transform: scale(1.1);
+    box-shadow: 0 4px 10px rgba(0, 243, 32, 0.5);
+}
 .warning {
     font-size: 0.9rem;
     color: #e74c3c;

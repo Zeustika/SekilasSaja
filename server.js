@@ -1,16 +1,38 @@
+require('dotenv').config(); // Load environment variables from .env file
 const express = require('express');
 const multer = require('multer');
 const path = require('path');
-const fs = require('fs');
+const cloudinary = require('cloudinary').v2;
+const { CloudinaryStorage } = require('multer-storage-cloudinary');
 
 const app = express();
-const upload = multer({ dest: 'uploads/' });
+
+// Konfigurasi Cloudinary
+cloudinary.config({
+    cloud_name: process.env.CLOUDINARY_CLOUD_NAME || 'dozrirldm',
+    api_key: process.env.CLOUDINARY_API_KEY || '917855413686439',
+    api_secret: process.env.CLOUDINARY_API_SECRET || 'ybhY6cRtcvnsmz6P0AgoWnpkrKA'
+});
+
+// Konfigurasi Multer dengan Cloudinary Storage
+const storage = new CloudinaryStorage({
+    cloudinary: cloudinary,
+    params: {
+        folder: 'uploads', // Folder di Cloudinary
+        resource_type: 'auto', // Otomatis deteksi tipe file (gambar/video)
+    },
+});
+
+const upload = multer({ storage: storage });
 
 // Serve static files (HTML, CSS, JS)
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Simpan informasi file dalam memori
-const files = {};
+let files = {};
+
+// Base URL statis
+const PORT = process.env.PORT || 3000;
+const baseUrl = 'https://sekilassaja.vercel.app';
 
 // Endpoint untuk halaman utama
 app.get('/', (req, res) => {
@@ -18,139 +40,151 @@ app.get('/', (req, res) => {
 });
 
 // Endpoint untuk upload file
-app.post('/upload', upload.single('file'), (req, res) => {
+app.post('/upload', upload.single('file'), async (req, res) => {
     try {
-        const file = req.file;
-
-        // Validasi file
-        if (!file) {
-            return res.status(400).json({ success: false, message: 'Tidak ada file yang diupload.' });
-        }
-
-        // Validasi tipe file (hanya gambar atau video)
-        if (!file.mimetype.startsWith('image/') && !file.mimetype.startsWith('video/')) {
-            fs.unlinkSync(file.path); // Hapus file yang tidak valid
-            return res.status(400).json({ success: false, message: 'Hanya file gambar atau video yang diizinkan.' });
-        }
-
         const fileId = Date.now().toString(); // Generate unique ID
-        const fileUrl = `https://sekilas-saja.vercel.app/view/${fileId}`; // Ganti dengan domain Vercel
+        const fileUrl = req.file.path; // URL file di Cloudinary
 
         // Simpan informasi file
         files[fileId] = {
-            path: file.path,
-            type: file.mimetype,
+            url: fileUrl,
+            type: req.file.mimetype,
             viewed: false
         };
 
-        res.json({ success: true, url: fileUrl });
+        // Generate URL lengkap
+        const viewUrl = `${baseUrl}/view/${fileId}`;
+
+        res.json({ success: true, url: viewUrl });
     } catch (error) {
-        console.error('Error saat upload file:', error);
-        res.status(500).json({ success: false, message: 'Terjadi kesalahan saat mengupload file.' });
+        console.error('Error uploading to Cloudinary:', error);
+        res.status(500).json({ success: false, message: 'Gagal mengupload file.' });
     }
 });
 
 // Endpoint untuk melihat file
 app.get('/view/:fileId', (req, res) => {
-    try {
-        const fileId = req.params.fileId;
-        const file = files[fileId];
+    const fileId = req.params.fileId;
+    const file = files[fileId];
 
-        // Validasi file
-        if (!file) {
-            return res.status(404).send('File tidak ditemukan.');
-        }
-
-        if (file.viewed) {
-            return res.status(404).send('File sudah dilihat dan tidak dapat diakses lagi.');
-        }
-
-        // Tandai file sebagai sudah dilihat
-        file.viewed = true;
-
-        // Kirim HTML dengan file yang dimuat
-        const mediaElement = file.type.startsWith('image/')
-            ? `<img src="/files/${fileId}" alt="File" style="max-width: 100%; border-radius: 8px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); pointer-events: none; user-select: none; -webkit-user-drag: none;">`
-            : `<video controls style="max-width: 100%; border-radius: 8px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); pointer-events: none; user-select: none; -webkit-user-drag: none;">
-                <source src="/files/${fileId}" type="${file.type}">
-               </video>`;
-
-        res.send(`
+    if (!file || file.viewed) {
+        return res.status(404).send(`
             <!DOCTYPE html>
             <html lang="en">
             <head>
                 <meta charset="UTF-8">
                 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                <title>View File</title>
+                <title>File Not Found</title>
                 <style>
                     body {
                         font-family: Arial, sans-serif;
                         display: flex;
+                        flex-direction: column;
                         justify-content: center;
                         align-items: center;
                         height: 100vh;
                         margin: 0;
                         background-color: #f8f9fa;
+                        text-align: center;
+                    }
+                    .message {
+                        font-size: 1.5rem;
+                        margin-bottom: 20px;
+                    }
+                    .btn {
+                        padding: 10px 20px;
+                        font-size: 1rem;
+                        color: #fff;
+                        background-color: #007bff;
+                        border: none;
+                        border-radius: 5px;
+                        cursor: pointer;
+                        text-decoration: none;
+                    }
+                    .btn:hover {
+                        background-color: #0056b3;
                     }
                 </style>
             </head>
             <body>
-                ${mediaElement}
-                <script>
-                    // Nonaktifkan klik kanan di seluruh halaman
-                    document.addEventListener('contextmenu', (e) => {
-                        e.preventDefault();
-                        alert('Klik kanan dinonaktifkan untuk mencegah download.');
-                    });
-
-                    // Nonaktifkan drag pada seluruh halaman
-                    document.addEventListener('dragstart', (e) => {
-                        e.preventDefault();
-                    });
-
-                    // Nonaktifkan klik kanan pada elemen media
-                    const media = document.querySelector('img, video');
-                    if (media) {
-                        media.addEventListener('contextmenu', (e) => e.preventDefault());
-                    }
-                </script>
+                <div class="message">File tidak ditemukan atau sudah dilihat :).</div>
+                <a href="/" class="btn">Back to Home</a>
             </body>
             </html>
         `);
-    } catch (error) {
-        console.error('Error saat melihat file:', error);
-        res.status(500).send('Terjadi kesalahan saat memuat file.');
     }
-});
 
-// Endpoint untuk file statis berdasarkan ID
-app.get('/files/:fileId', (req, res) => {
-    try {
-        const fileId = req.params.fileId;
-        const file = files[fileId];
+    // Tandai file sebagai sudah dilihat
+    file.viewed = true;
 
-        // Validasi file
-        if (!file) {
-            return res.status(404).send('File tidak ditemukan.');
-        }
+    // Tampilkan file berdasarkan tipe (gambar/video)
+    const mediaElement = file.type.startsWith('image/')
+        ? `<img src="${file.url}" alt="File" style="max-width: 100%; border-radius: 8px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); pointer-events: none; user-select: none; -webkit-user-drag: none;">`
+        : `<video controls style="max-width: 100%; border-radius: 8px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); pointer-events: none; user-select: none; -webkit-user-drag: none;">
+            <source src="${file.url}" type="${file.type}">
+           </video>`;
 
-        // Kirim file
-        res.sendFile(path.resolve(file.path), {
-            headers: {
-                'Content-Type': file.type
-            }
-        });
+    res.send(`
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>View File</title>
+            <style>
+                body {
+                    font-family: Arial, sans-serif;
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    align-items: center;
+                    height: 100vh;
+                    margin: 0;
+                    background-color: #f8f9fa;
+                }
+                .back-btn {
+                    margin-top: 20px;
+                    padding: 10px 20px;
+                    font-size: 1rem;
+                    color: #fff;
+                    background-color: #007bff;
+                    border: none;
+                    border-radius: 5px;
+                    cursor: pointer;
+                    text-decoration: none;
+                }
+                .back-btn:hover {
+                    background-color: #0056b3;
+                }
+            </style>
+        </head>
+        <body>
+            ${mediaElement}
+            <a href="/" class="back-btn">Back to Home</a>
+            <script>
+                // Nonaktifkan klik kanan di seluruh halaman
+                document.addEventListener('contextmenu', (e) => {
+                    e.preventDefault();
+                    alert('Klik kanan dinonaktifkan untuk mencegah download.');
+                });
 
-        // Hapus file setelah dilihat
-        fs.unlink(file.path, (err) => {
-            if (err) console.error('Gagal menghapus file:', err);
-            delete files[fileId]; // Hapus dari memori
-        });
-    } catch (error) {
-        console.error('Error saat mengirim file:', error);
-        res.status(500).send('Terjadi kesalahan saat memuat file.');
-    }
+                // Nonaktifkan drag pada seluruh halaman
+                document.addEventListener('dragstart', (e) => {
+                    e.preventDefault();
+                });
+
+                // Nonaktifkan klik kanan pada elemen media
+                const media = document.querySelector('img, video');
+                if (media) {
+                    media.addEventListener('contextmenu', (e) => e.preventDefault());
+                }
+            </script>
+        </body>
+        </html>
+    `);
 });
 
 // Jalankan server
-module.exports = app;
+app.listen(PORT, () => {
+    console.log(`Server berjalan di ${baseUrl}`);
+});

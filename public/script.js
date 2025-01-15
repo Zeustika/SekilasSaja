@@ -4,37 +4,32 @@ function showPreview(file) {
     const previewImage = document.getElementById('previewImage');
     const previewVideo = document.getElementById('previewVideo');
 
-    // Reset preview
-    previewImage.src = '';
-    previewVideo.src = '';
-    previewImage.style.display = 'none';
-    previewVideo.style.display = 'none';
-
     if (file.type.startsWith('image/')) {
         previewImage.src = URL.createObjectURL(file);
         previewImage.style.display = 'block';
+        previewVideo.style.display = 'none';
     } else if (file.type.startsWith('video/')) {
         previewVideo.src = URL.createObjectURL(file);
         previewVideo.style.display = 'block';
+        previewImage.style.display = 'none';
     }
 
     previewContainer.style.display = 'block';
 }
-
 // Fungsi untuk menyalin teks ke clipboard
 function copyToClipboard(element) {
-    const textToCopy = element.textContent;
+    const textToCopy = element.textContent; // Ambil teks dari elemen
 
+    // Gunakan Clipboard API untuk menyalin teks
     navigator.clipboard.writeText(textToCopy)
         .then(() => {
-            alert('Link berhasil disalin: ' + textToCopy);
+            alert('Link berhasil disalin: ' + textToCopy); // Tampilkan pesan sukses
         })
         .catch((err) => {
-            console.error('Gagal menyalin teks: ', err);
+            console.error('Gagal menyalin teks: ', err); // Tampilkan pesan error
             alert('Gagal menyalin link. Silakan coba lagi.');
         });
 }
-
 // Event listener untuk input file
 document.getElementById('fileInput').addEventListener('change', function (event) {
     const file = event.target.files[0];
@@ -62,26 +57,18 @@ async function uploadFile() {
             body: formData
         });
 
-        // Periksa jenis respons
-        const contentType = response.headers.get('content-type');
-        if (contentType && contentType.includes('application/json')) {
-            const data = await response.json();
-            if (data.success) {
-                // Tampilkan link di HTML
-                const linkContainer = document.getElementById('linkContainer');
-                const fileLink = document.getElementById('fileLink');
-                fileLink.textContent = data.url; // Set teks link
-                linkContainer.style.display = 'block'; // Tampilkan elemen link
+        const data = await response.json();
+        if (data.success) {
+            // Tampilkan link di HTML
+            const linkContainer = document.getElementById('linkContainer');
+            const fileLink = document.getElementById('fileLink');
+            fileLink.textContent = data.url; // Set teks link
+            linkContainer.style.display = 'block'; // Tampilkan elemen link
 
-                // Tampilkan alert
-                alert('File berhasil diupload! Bagikan link ini: ' + data.url);
-            } else {
-                alert('Gagal mengupload file: ' + data.message);
-            }
+            // Tampilkan alert
+            alert('File berhasil diupload! Bagikan link ini: ' + data.url);
         } else {
-            const text = await response.text();
-            console.error('Respons bukan JSON:', text);
-            alert('Terjadi kesalahan saat mengupload file. Silakan coba lagi.');
+            alert('Gagal mengupload file.');
         }
     } catch (error) {
         console.error('Error:', error);
@@ -89,11 +76,12 @@ async function uploadFile() {
     }
 }
 
-// Nonaktifkan klik kanan
-document.addEventListener('contextmenu', function (e) {
-    e.preventDefault();
-    alert('Klik kanan dinonaktifkan untuk melindungi konten.');
-});
+
+        // Nonaktifkan klik kanan
+        document.addEventListener('contextmenu', function(e) {
+            e.preventDefault();
+            alert('Klik kanan telah dinonaktifkan!');
+        });
 
 // Fungsi untuk menampilkan file yang diupload
 async function viewFile(fileId) {
@@ -118,8 +106,7 @@ async function viewFile(fileId) {
 
             document.getElementById('viewContainer').style.display = 'block';
         } else {
-            const data = await response.json();
-            alert(data.message || 'File tidak ditemukan atau sudah dilihat.');
+            alert('File tidak ditemukan atau sudah dilihat.');
         }
     } catch (error) {
         console.error('Error:', error);
