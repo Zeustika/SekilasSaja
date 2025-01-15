@@ -42,7 +42,7 @@ Jika Anda ingin menjalankan proyek ini secara lokal, ikuti langkah-langkah berik
 
 1. **Clone Repositori**:
    ```bash
-   git clone https://github.com/username/sekilas-saja.git
+   git clone https://github.com/Zeustika/sekilas-saja.git
    cd sekilas-saja
    ```
 
