@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SekilasSaja</title>
-    <link rel="icon" type="image/png" href="img/favicon.png"/>
+    <link rel="icon" type="image/png" href="img/icon-sekilas.png"/>
     <link rel="stylesheet" href="styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
@@ -16,14 +16,13 @@
         </header>
 
         <main class="main-content">
-            <!-- Upload Section -->
             <div class="upload-section">
                 <input type="file" id="fileInput" accept="image/*, video/*" class="file-input">
                 <label for="fileInput" class="pilih-file-button">Pilih File</label>
                 <button onclick="uploadFile()" class="upload-button">Upload</button>
             </div>
 
-            <!-- Preview Section -->
+            <!-- Tambahkan elemen untuk preview file -->
             <div id="previewContainer" class="preview-section" style="display: none;">
                 <h2>Preview:</h2>
                 <div class="media-container">
@@ -32,13 +31,12 @@
                 </div>
             </div>
 
-            <!-- Link Section -->
+            <!-- Tambahkan elemen untuk menampilkan link -->
             <div id="linkContainer" class="link-section" style="display: none;">
                 <h2>Link File:</h2>
                 <p id="fileLink" onclick="copyToClipboard(this)">Link akan muncul di sini setelah upload.</p>
             </div>
 
-            <!-- View Section -->
             <div id="viewContainer" class="view-section" style="display: none;">
                 <h2>File Anda:</h2>
                 <div class="media-container">
@@ -49,13 +47,11 @@
             </div>
         </main>
 
-        <!-- Footer -->
         <footer class="footer">
             <p>© 2025 SekilasSaja. Dibuat dengan ❤️ oleh Iyus.</p>
         </footer>
     </div>
 
-    <!-- Script -->
     <script src="script.js"></script>
 </body>
 </html>
