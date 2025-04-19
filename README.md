@@ -98,4 +98,4 @@ This project is licensed under the [MIT License](LICENSE).
 
 ## Author 🔧
 
-Made with ❤️ . Feel free to reach out via GitHub if you have any questions or suggestions.
+Made with ❤️. Feel free to reach out via GitHub if you have any questions or suggestions.
