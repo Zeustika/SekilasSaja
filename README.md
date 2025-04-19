@@ -1,102 +1,101 @@
-# Sekilas Saja - File Sharing yang Sederhana dan Cepat ✨
+# Sekilas Saja - Simple & Fast File Sharing ✨
 
-**Sekilas Saja** adalah aplikasi web sederhana untuk berbagi file (gambar atau video) dengan cepat dan mudah. File yang diunggah hanya dapat dilihat sekali, setelah itu file tidak dapat diakses lagi. Aplikasi ini menggunakan **Node.js**, **Express.js**, dan **Multer** untuk mengelola upload file serta menyediakan pengalaman berbagi yang aman dan nyaman.
-
----
-
-## Fitur Utama 🌟
-
-- **Upload File Cepat**: Unggah gambar atau video dengan mudah.
-- **Dilihat Sekali Saja**: File hanya bisa dilihat satu kali, setelah itu tidak dapat diakses lagi.
-- **Proteksi Download**: Nonaktifkan klik kanan dan drag untuk mencegah pengunduhan.
-- **Responsif**: Didesain untuk bekerja dengan baik di berbagai perangkat.
+**Sekilas Saja** is a lightweight web application that allows you to quickly and easily share files (images or videos). Each uploaded file can **only be viewed once** — after it's opened, the file is permanently deleted from the server. This project uses **Node.js**, **Express.js**, and **Multer** to handle file uploads and provide a secure, one-time viewing experience.
 
 ---
 
-## Cara Menggunakan 🛠️
+## Key Features 🌟
 
-1. **Unggah File**:
-   - Buka halaman utama aplikasi.
-   - Pilih file (gambar atau video) yang ingin Anda bagikan.
-   - Klik tombol "Upload".
-
-2. **Bagikan Link**:
-   - Setelah file diunggah, Anda akan mendapatkan tautan unik.
-   - Bagikan tautan tersebut kepada penerima.
-
-3. **Lihat File**:
-   - Penerima tautan dapat membuka file melalui tautan tersebut.
-   - File hanya dapat dilihat sekali. Setelah itu, file akan otomatis terhapus dari server.
+- **Quick Uploads**: Instantly upload image or video files.
+- **View Once Only**: Files can only be viewed once — then they're deleted automatically.
+- **Download Protection**: Right-click and drag prevention to help secure shared files.
+- **Responsive Design**: Works smoothly on both mobile and desktop.
 
 ---
 
-## Cara Instalasi Lokal 💻
+## How It Works 🛠️
 
-Jika Anda ingin menjalankan proyek ini secara lokal, ikuti langkah-langkah berikut:
+1. **Upload a File**:
+   - Visit the home page.
+   - Select the image or video you want to share.
+   - Click the "Upload" button.
 
-### Prasyarat
+2. **Share the Link**:
+   - After uploading, a unique link will be generated.
+   - Share the link with the recipient.
 
-- Node.js (v16 atau lebih baru)
+3. **View the File**:
+   - The recipient opens the link to view the file.
+   - The file is deleted immediately after being viewed once.
 
-### Langkah-langkah
+---
 
-1. **Clone Repositori**:
+## Run Locally 💻
+
+If you want to run the project on your local machine, follow these steps:
+
+### Prerequisites
+
+- Node.js (v16 or higher)
+
+### Steps
+
+1. **Clone the Repository**:
    ```bash
    git clone https://github.com/Zeustika/sekilas-saja.git
    cd sekilas-saja
    ```
 
-2. **Instal Dependensi**:
+2. **Install Dependencies**:
    ```bash
    npm install
    ```
 
-3. **Jalankan Server**:
+3. **Start the Server**:
    ```bash
    npm start
    ```
 
-4. **Akses Aplikasi**:
-   - Buka browser Anda dan akses `http://localhost:3000`.
+4. **Open the App**:
+   - Open your browser and go to `http://localhost:3000`.
 
 ---
 
-## Teknologi yang Digunakan 🛠️
+## Tech Stack 🛠️
 
-- **Backend**: Node.js dengan Express.js
-- **File Upload**: Multer
-- **Frontend**: HTML, CSS, dan JavaScript
+- **Backend**: Node.js + Express.js
+- **File Handling**: Multer
+- **Frontend**: HTML, CSS, JavaScript
 
 ---
 
-## Kontribusi 🤝
+## Contributing 🤝
 
-Kontribusi selalu diterima! Jika Anda ingin berkontribusi pada proyek ini, silakan ikuti langkah-langkah berikut:
+Contributions are always welcome! To contribute:
 
-1. Fork repositori ini.
-2. Buat branch baru untuk fitur atau perbaikan Anda:
+1. Fork this repository.
+2. Create a new branch:
    ```bash
-   git checkout -b fitur-baru
+   git checkout -b your-feature
    ```
-3. Commit perubahan Anda:
+3. Commit your changes:
    ```bash
-   git commit -m 'Tambahkan fitur baru'
+   git commit -m 'Add a new feature'
    ```
-4. Push ke branch Anda:
+4. Push to your branch:
    ```bash
-   git push origin fitur-baru
+   git push origin your-feature
    ```
-5. Buat Pull Request ke repositori utama.
+5. Open a Pull Request to the main repo.
 
 ---
 
-## Lisensi 🔖
+## License 🔖
 
-Proyek ini dilisensikan di bawah [MIT License](LICENSE).
+This project is licensed under the [MIT License](LICENSE).
 
 ---
 
-## Penulis 🔧
+## Author 🔧
 
-Dibuat dengan ❤️ oleh **iyus**. Jika Anda memiliki pertanyaan atau masukan, jangan ragu untuk menghubungi saya melalui GitHub.
-
+Made with ❤️ . Feel free to reach out via GitHub if you have any questions or suggestions.
