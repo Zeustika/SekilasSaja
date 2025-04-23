@@ -42,8 +42,8 @@ If you want to run the project on your local machine, follow these steps:
 
 1. **Clone the Repository**:
    ```bash
-   git clone https://github.com/Zeustika/sekilas-saja.git
-   cd sekilas-saja
+   git clone https://github.com/Zeustika/SekilasSaja.git
+   cd SekilasSaja
    ```
 
 2. **Install Dependencies**:
